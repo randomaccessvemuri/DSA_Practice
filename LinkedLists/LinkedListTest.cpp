@@ -1,19 +1,34 @@
 #include <gtest/gtest.h>
 #include <SinglyLinkedList.h>
 #include <vector>
-#include <iostream>
 
 
-TEST(CheckPushBack, Node) {
+TEST(CheckIfWorked, SinglyLinkedList) {
     std::vector<int> a = {1, 2, 3, 4, 5};
-    SinglyLinkedList<int> list;
 
-
-    for (int i = 0; i < 5; i++) {
-        list.insertAt(i, a[i]);
-    }
+    auto head = convertVectorToLinkedList<int>(a);
 
     //TODO: Fix incorrect result. Potential problem may be that you're messing up somewhere with the pointers.
-    EXPECT_EQ(list.at(0)->data,1);
+    for (int i = 0; i < a.size(); i++) {
+        EXPECT_EQ(traverseTo(head, i).data, a[i]);
+    }
+
+}
+
+TEST(CheckInsertionDeletion, SinglyLinkedList){
+    std::vector<int> a = {1, 2, 3, 4, 5};
+    auto head = convertVectorToLinkedList<int>(a);
+
+
+
+
+
+    //Insertion
+    insertAfter(&head, 6);
+    EXPECT_EQ(traverseTo(head, 1).data, 6);
+
+    deleteAfter(head.next);
+    EXPECT_EQ(traverseTo(head, 2).data, 3);
+
 }
 

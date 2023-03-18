@@ -11,44 +11,69 @@
  *          ii) Remove elements (consider edge cases as well)
  */
 
-//Contains data at a node and pointer to the next
-template <class T>
+template<class T>
 class Node {
 public:
     T data;
-    Node* next;
+    Node<T>* next;
 
-    Node<T>(T inData, Node* newNext): data(inData), next(newNext) {};
+    Node(T inData, Node<T>* newNext) : data(inData), next(newNext) {};
 
-};
-
-template <class T>
-class SinglyLinkedList{
-public:
-    Node<T>* head;
-
-    Node<T>* at(int index){
-        auto currentNode = head;
-        while (index--){
-            currentNode = currentNode->next;
-        }
-
-        return currentNode;
-    }
-
-    void insertAt(int index, T data){
-        if (index!=0)
-        {
-            auto prev = this->at(index-1);
-            auto newNode = Node<T>(data, prev->next);
-            prev->next = &newNode;
-        } else {
-            Node<T> newHead = Node<T>(data, this->head);
-            head = &newHead;
-        }
-    }
+    explicit Node(T inData) : data(inData), next(nullptr) {};
 
 };
+
+template<class T>
+void insertAfter(Node<T>* node, T data) {
+    auto newNode = new Node<T>(data,node->next);
+    node->next = newNode;
+}
+
+
+
+template<class T>
+Node<T> traverseTo(Node<T> head, int index) {
+    auto temp = head;
+    for (int i = 0; i < index; i++) {
+        if (temp.next == nullptr) {
+            throw std::runtime_error("Index out of bounds");
+        }
+        temp = *(temp.next);
+    }
+    return temp;
+}
+
+template<class T>
+Node<T> convertVectorToLinkedList(std::vector<T> a){
+    auto head = Node<T>(a[0]);
+    for (int num: std::vector<T>(a.rbegin(), a.rend()-1)){
+        insertAfter(&head, num);
+    }
+
+    return head;
+}
+
+template<class T>
+void deleteAfter(Node<T>* node) {
+    if (node->next == nullptr) {
+        throw std::runtime_error("Cannot delete after last node");
+    }
+    auto temp = node->next;
+    node->next = node->next->next;
+    delete temp;
+}
+
+template<class T>
+void debugSLList(Node<T> head) {
+    auto currentNode = head;
+    std::cout<<"\n";
+    while (currentNode.next != nullptr) {
+        std::cout << currentNode.data << " -> ";
+        currentNode = *(currentNode.next);
+    }
+    std::cout<<"\n";
+}
+
 
 
 
