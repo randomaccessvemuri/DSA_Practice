@@ -5,11 +5,6 @@
 #ifndef DSA_PRACTICE_SINGLYLINKEDLIST_H
 #define DSA_PRACTICE_SINGLYLINKEDLIST_H
 
-/*
- * TODO: It must be able to
- *          i) Add elements (at any index)
- *          ii) Remove elements (consider edge cases as well)
- */
 
 template<class T>
 class Node {
