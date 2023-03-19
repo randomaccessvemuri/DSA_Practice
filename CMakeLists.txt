@@ -15,8 +15,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-set(SOURCE LinkedLists/SinglyLinkedList.cpp
-        LinkedLists/SinglyLinkedList.h LinkedLists/LinkedListTest.cpp)
+set(SOURCE
+        LinkedLists/SinglyLinkedList.h LinkedLists/LinkedListTest.cpp LinkedLists/DoublyLinkedList.h)
 
 add_executable(${PROJECT_NAME} ${SOURCE})
 

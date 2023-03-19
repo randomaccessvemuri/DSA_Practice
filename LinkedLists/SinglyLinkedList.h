@@ -27,13 +27,10 @@ void insertAfter(Node<T>* node, T data) {
 
 
 template<class T>
-Node<T> traverseTo(Node<T> head, int index) {
-    auto temp = head;
-    for (int i = 0; i < index; i++) {
-        if (temp.next == nullptr) {
-            throw std::runtime_error("Index out of bounds");
-        }
-        temp = *(temp.next);
+Node<T>* traverseTo(Node<T> &head, int index) {
+    auto temp = &head;
+    while (index--){
+        temp = temp->next;
     }
     return temp;
 }
